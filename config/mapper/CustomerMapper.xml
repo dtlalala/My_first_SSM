@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="dt.com.dao.CustomerMapper">
+
+<!-- 查询所有 -->
+<select id="findAl" resultType="dt.com.model.Customer">
+		SELECT 	id, 
+			NAME, 
+			WORK, 
+			tel, 
+			email, 
+			birth
+			FROM 
+		test.user
+</select>
+
+
+<!-- 保存 -->
+<insert id="save" parameterType="dt.com.model.Customer">
+		INSERT INTO test.user 
+			(
+			NAME, 
+			WORK, 
+			tel, 
+			email, 
+			birth
+			)
+			VALUES
+			(
+			#{name}, 
+			#{work}, 
+			#{tel}, 
+			#{email}, 
+			#{birth}
+			)
+</insert>
+
+
+<!-- 根据 id 查询对象 -->
+<select id="findById" parameterType="int" resultType="dt.com.model.Customer">
+		SELECT 	id, 
+			NAME, 
+			WORK, 
+			tel, 
+			email, 
+			birth
+			FROM 
+			test.user
+		where id = #{value}
+</select>
+
+<!-- 更改 -->
+<update id="update" parameterType="dt.com.model.Customer">
+		UPDATE test.user 
+			SET 
+			NAME = #{name}, 
+			WORK = #{work} , 
+			tel = #{tel} , 
+			email = #{email} , 
+			birth = #{birth}
+			WHERE
+			id = #{id} ;
+</update>
+
+<!-- 删除 -->
+<delete id="delete" parameterType="dt.com.model.Customer">
+		DELETE FROM test.user 
+		<where>
+			id
+			<foreach collection="array" item="id" open="in (" close=")" separator=",">
+				#{id}			
+			</foreach>
+		</where>
+
+
+</delete>
+</mapper>
